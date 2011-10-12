@@ -1,0 +1,3 @@
+$helloworld;
+$p=defined($helloworld);
+print ("$p");

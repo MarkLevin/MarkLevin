@@ -1,0 +1,3 @@
+import numpy
+sum = sin(3)
+print(sum)

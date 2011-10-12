@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1312980700 source:/home/gee/sourcefiles/proj00/main.cpp
+	<iostream>
+	<cmath>
+

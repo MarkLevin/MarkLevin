@@ -1,0 +1,8 @@
+$r=<STDIN>;
+chomp($r);
+if ($r=~m/^[0-9]+$/){
+	print "only digits \n";
+}
+else{
+	print "not only digits\n";
+}

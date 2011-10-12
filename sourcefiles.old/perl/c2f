@@ -1,0 +1,11 @@
+$ce=<STDIN>;
+chomp($ce);
+if($ce=~m/^[+-]?[0-9]+(\.[0-9]*)?$/)
+{
+	$fe=$ce*9/5+32;
+	print "$ce C = $fe F\n";
+}
+else 
+{
+	print "Input Error!\n";
+}

@@ -1,0 +1,4 @@
+$a1=<STDIN>; $a2=<STDIN>;
+chomp($a1);
+chomp($a2);
+print "$a1";print "$a2";
