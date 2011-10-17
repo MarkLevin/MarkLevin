@@ -50,13 +50,12 @@ int main()
         date=y*365+m*20+d;
 
         int ty,ts,tn;
-        ty=date/360;
-        date=date%360;
+        ty=date/260;
+        date=date%260;
 
         tn=date%13+1;
         ts=date%20;
 
-        cout<<tn<<" "<<tozlkin[ts]<<ty<<endl;
-
+        cout<<tn<<" "<<tozlkin[ts]<<" "<<ty<<endl;
     }
 }
