@@ -22,7 +22,8 @@ using namespace std;
 
 int main()
 {
-    int n,r;
+    int n;
+    double r;
     cin>>n>>r;
 
     double x[n],y[n];

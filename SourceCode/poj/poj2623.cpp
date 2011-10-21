@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include <stdlib.h>
-
+#include <stdio.h>
 using namespace std;
 
 int cmp(const void *a, const void *b)
@@ -28,24 +28,24 @@ int cmp(const void *a, const void *b)
 
 int main()
 {
-    int data[250000];
+    int data[250001];
     int n; 
     cin>>n;
 
     for(int i=0;i<n;i++)
-    {
         cin>>data[i];
-    }
 
     qsort(data,n,sizeof(int), cmp);
 
     ///for(int i=0;i<n;i++)
      //   cout<<data[i]<<" ";
-    int middle;
-    if(!(n%2))
-        middle=(data[n/2]+data[n/2-1])/2;
-    else middle = data[n/2];
-    cout<<middle;
+    double middle;
+    int m=n/2;
+    if(n%2)
+        middle = data[m];
+    else    
+        middle=data[m-1]/2.0+data[m]/2.0;
         
+    printf("%.1f\n",middle);
 
 }
