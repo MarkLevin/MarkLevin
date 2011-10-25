@@ -3,7 +3,7 @@
  *
  *       Filename:  poj3468.cpp
  *
- *    Description:  A Sinple Problem with Integers
+ *    Description:  A Sinple Problem with longegers
  *
  *        Version:  1.0
  *        Created:  10/22/2011 04:21:16 PM
@@ -16,69 +16,62 @@
  * =====================================================================================
  */
 #include "stdio.h"
-#include <iostream>
-using namespace std;
 
-__int64 num[100000];
-__int64 v[200000];
-__int64 l[200000];
-__int64 r[200000];
-__int64 n[200000];
-__int64 ls[200000];
-__int64 rs[200000];
-__int64 tt=0;
 
-void buildtree(__int64 a,__int64 b)
+long long num[100000];
+long long v[400000];
+long long l[400000];
+long long r[400000];
+long long n[400000];
+long long ls[400000];
+long long rs[400000];
+long tt=0;
+
+void buildtree(long a,long b)
 {
     ++tt;
-    __int64 x=tt;
+    long x=tt;
     l[x]=a;
     r[x]=b;
+    v[x]=0;
     if(b-a>1)
     {
-        __int64 mid=(a+b)>>1;
+        long mid=(a+b)>>1;
         ls[x]=tt+1; buildtree(a,mid);
         rs[x]=tt+1; buildtree(mid,b);
+        n[x]=n[ls[x]]+n[rs[x]];
     }
+    else n[x]=num[a];
 }
-void filltree(__int64 x)
-{
-    __int64 sum=0;
-    for(int i=l[x];i<r[x];i++)
-        sum+=num[i];
-    n[x]=sum;
-    if(r[x]-l[x]>1)
-    {
-        filltree(rs[x]);
-        filltree(ls[x]);
-    }
-}
-void clean(__int64 x)
+void clean(long x)
 {
     if(v[x]!=0)
-        n[x]=n[x]+(r[x]-l[x])*v[x];
-    if(ls[x]!=0) v[ls[x]]=v[ls[x]]+v[x];
-    if(rs[x]!=0) v[rs[x]]=v[rs[x]]+v[x];
-    v[x]=0;
+    {
+        n[x]=n[x]+(r[x]-l[x])*(long long)v[x];
+        if(ls[x]!=0) v[ls[x]]=(long long)v[ls[x]]+v[x];
+        if(rs[x]!=0) v[rs[x]]=(long long)v[rs[x]]+v[x];
+        v[x]=0;
+    }
 }
-__int64 result;
-__int64 count(int x,int a,int b)
+
+long long count(long x,long a,long b)
 {
-    if(a<=l[x]&&b>=r[x]) {result=n[x]; return result;}
-    
-    __int64 mid=(r[x]+l[x])>>1;
-    __int64 cou=0;
+    clean(x);
+    if(a<=l[x]&&b>=r[x]) { return n[x];}
+    long mid=(r[x]+l[x])>>1;
+    long long cou=0;
     if(a<mid) cou+=count(ls[x],a,b);
     if(b>mid) cou+=count(rs[x],a,b);
     clean(ls[x]); clean(rs[x]);
     n[x]=n[ls[x]]+n[rs[x]];
     return cou;
 }
-void add (int x,int a,int b,int c)
+void add (long x,long a,long b,long c)
 {
         //if(a<=l[x]&&b>=r[x]) {n[x]+=c*(r[x]-l[x]); if(r[x]-l[x]<=1)return ;}
-        if(a<=l[x]&&b>=r[x]){ v[x]=v[x]+c; if(r[x]-l[x]<=1) return ;};
-        int mid=(r[x]+l[x])>>1;
+        clean(x);
+        if(a<=l[x]&&b>=r[x]){ v[x]=v[x]+c; /* if(r[x]-l[x]<=1)*/ return ;};
+        long long mid=(r[x]+l[x])>>1;
         if(a<mid) add(ls[x],a,b,c);
         if(b>mid) add(rs[x],a,b,c);
         //n[x]=n[ls[x]]+n[rs[x]];
@@ -86,51 +79,35 @@ void add (int x,int a,int b,int c)
         n[x]=n[ls[x]]+n[rs[x]];
 }
 
-/*int count(int x,int a,int b)
-{
-    if(a<=l[x]&&b>=r[x])
-        return n[x];
-    int ans=0;
-    int mid=(l[x]+r[x])>>1;
-    if (a<mid)
-        ans+=count(ls[x],a,b);
-    if (mid>b)
-        ans+=count(rs[x],a,b);
-    clean(ls[x]);clean(rs[x]);
-    n[x]=n[ls[x]]+n[rs[x]];
-    return ans;
-}*/
+
 int main()
 {
-    int leng,operat;
+    long leng,operat;
 
     scanf("%d%d\n",&leng,&operat);
-    for(int i=0;i<leng;i++)
+    for(long i=0;i<leng;i++)
     {
-        scanf("%d",&num[i]);
+        scanf("%lld",&num[i]);
     }
     buildtree(0,leng);
-    filltree(1);
     
 
-    for(int i=0;i<operat;i++)
+    for(long i=0;i<operat;i++)
     {
-        char op;
-        cin>>op;
+        char op[2];
+        scanf("%s",&op);
 
-        if(op=='C')
+        if(op[0]=='C')
         {
-            int a,b,c;
-            scanf("%d%d%d",&a,&b,&c);
-             //   num[i]+=c;
+            long long a,b,c;
+            scanf("%d%d%lld",&a,&b,&c);
             add(1,a-1,b,c);
         }
-        if(op=='Q')
+        if(op[0]=='Q')
         {
-            int a,b;
+            long a,b;
             scanf("%d%d",&a,&b);
-            result=0;
-            printf("%d\n",count(1,a-1,b));
+            printf("%lld\n",count(1,a-1,b));
         }
 
     }
