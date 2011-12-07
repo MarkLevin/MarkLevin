@@ -1,0 +1,23 @@
+<html>
+<head>
+<title> ADD Simulation </title>
+</head>
+<body>
+<script language="JavaScript">
+function add()
+{
+        var a=document.fuck.a.value;
+        var b=document.fuck.b.value;
+        document.fuck.sum.value=a+b*1;
+}
+</script>
+<form name="fuck">
+<table>
+<tr><td>INPUT A</td> <td><input type="text" id="a" onchange="add();"/></td></tr>
+<tr><td>INPUT B</td> <td><input type="text" id="b" onchange="add();"/></td></tr>
+<tr>  <td colspan="2"> <input type="button" name="cal" onclick="add();" value="cal"/> </tr>
+<tr>  <td colspan="2"> <input type="text" name="sum" id=sum/> </tr>
+</table>
+</form>
+</body>
+</html>
