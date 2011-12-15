@@ -24,6 +24,7 @@ void init();
 void keyboard(uc,int,int);
 void mergeSort(int,int);
 void merge(int,int,int);
+
 int m,n;
 int flag=0;
 
@@ -338,35 +339,122 @@ void display()
   glutSwapBuffers();
 }
 
+int prevkey=0;
 void keyboard(uc key, int x, int y)
 {
-  switch(key)
+  switch(prevkey)
   {
   case 'i':
-    insertionSort();
-    display();
+      if(key=='s')
+      {
+        insertionSort();
+        display();
+      }
+      else if(key=='r')
+      {
+          for(int i=0;i<MAXSIZE;i++)
+              insertionSortNumber[i]=rand()%MAX;
+          display();
+      }
     break;
   case 'b':
-    bubbleSort();
-    display();
+    if(key=='s')
+    {
+        bubbleSort();
+        display();
+    }
+    else if(key=='r')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+            bubbleSortNumber[i]=rand()%MAX;
+        display();
+    }
     break;
   case 'q':
-    quickSort(0,MAXSIZE-1);
-    display();
+    if(key=='s')
+    {
+        quickSort(0,MAXSIZE-1);
+        display();
+    }
+    else if(key=='r')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+            quickSortNumber[i]=rand()%MAX;
+        display();
+    }
     break;
   case 'm':
-    mergeSort(0,MAXSIZE-1);
-    display();
+    if(key=='s')
+    {
+        mergeSort(0,MAXSIZE-1);
+        display();
+    }
+    else if(key=='r')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+            mergeSortNumber[i]=rand()%MAX;
+        display();
+    }
     break;
-  case 'f':
-    shellSort();
-    display();
+  case 'h':
+    if(key=='s')
+    {
+        shellSort();
+        display();
+    }
+    else if(key=='r')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+            shellSortNumber[i]=rand()%MAX;
+        display();
+    }
     break;
   case 'n':
-    bubble2Sort();
-    display();
+    if(key=='s')
+    {
+        bubble2Sort();
+        display();
+    }
+    else if(key=='r')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+            bubble2SortNumber[i]=rand()%MAX;
+        display();
+    }
+  case 'a':
+    if(key=='s')
+    {
+        quickSort(0,MAXSIZE-1);
+        bubbleSort();
+        insertionSort();
+        mergeSort(0,MAXSIZE-1);
+        shellSort();
+        bubble2Sort();
+        display();
+    }
+    if(key=='r')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+            quickSortNumber[i]=bubbleSortNumber[i]=insertionSortNumber[i]=mergeSortNumber[i]=shellSortNumber[i]=bubble2SortNumber[i]=rand()%MAX;
+        display();
+    }
+    if(key=='t')
+    {
+        for(int i=0;i<MAXSIZE;i++)
+        {
+            quickSortNumber[i]=rand()%MAX;
+            bubbleSortNumber[i]=random()%MAX;
+            insertionSortNumber[i]=random()%MAX;
+            mergeSortNumber[i]=random()%MAX;
+            shellSortNumber[i]=random()%MAX;
+            bubble2SortNumber[i]=random()%MAX;
+        }
+        display();
+
+    }
     break;
   }
+  prevkey=key;
 }
 
 
