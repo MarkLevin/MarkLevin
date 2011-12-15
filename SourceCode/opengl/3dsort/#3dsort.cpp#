@@ -1,0 +1,95 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <GL/glut.h>
+#define D(a) cout<< #a " = ["<<a<<"] at line ["<<__LINE__<<"] "<<endl;
+using namespace std;
+
+typedef unsigned int ui;
+const ui MAXSIZE=400;
+const ui MAX=10000000;
+ui insertionSortNumber[MAXSIZE];
+ui bubbleSortNumber[MAXSIZE];
+
+void display();
+
+void init()
+{
+  srand(time(0));
+  for(int i=0;i<MAXSIZE;i++)
+  {
+    bubbleSortNumber[i]=insertionSortNumber[i]=rand()%MAX;
+  }
+}
+
+void insertionSort()
+{
+  for(int i=1;i<MAXSIZE;i++)
+  {
+    int key=insertionSortNumber[i];
+    int j=i-1;
+    while(j>0&&insertionSortNumber[j]>key)
+    {
+      
+      insertionSortNumber[j+1]=insertionSortNumber[j];
+      j--;
+    }
+    insertionSortNumber[j+1]=key;
+    glutPostRedisplay();
+  }
+}
+void bubbleSort()
+{
+  for(int i=0;i<MAXSIZE;i++)
+  {
+    for(j=MAXSIZE-1;j>=i+1;j++)
+    {
+      if(bubbleSortNumber[j]<bubbleSortNumber[j-1]
+        {
+          int temp=bubbleSortNumber[j];
+          bubbleSortNumber[j]=bubbleSortNumber[j+1];
+          bubbleSortNumber[j+1]=temp;
+        }
+    }
+  }
+}
+void display()
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  glColor3f(0.1,0.5,0.8);
+  glLineWidth(1);
+  for(int i=0;i<MAXSIZE;i++)
+  {
+    glBegin(GL_LINES);
+    {
+      glVertex2f(i*1.0/MAXSIZE,insertionSortNumber[i]*1.0/MAX);
+      glVertex2f(i*1.0/MAXSIZE,0);
+    }
+    glEnd();
+  }
+  glutSwapBuffers();
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+  switch(key)
+  {
+  case 'i':
+    insertionSort();
+  }
+  display();
+}
+
+
+int main(int argc, char ** argv){
+  init();
+  glutInit(&argc, argv);
+  //glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);
+  //glutInitWindowSize(800,800);
+
+  glutCreateWindow("3D sorts");
+  glutFullScreen();
+  glutDisplayFunc(display);
+  glutKeyboardFunc(keyboard);
+  glutMainLoop();
+}

@@ -50,7 +50,6 @@ void display()
         glVertex2f(HALFWIDTH,-HALFWIDTH*sqrt(3)/3+OFFSET);
         glVertex2f(0,HALFWIDTH*sqrt(3)*2/3+OFFSET);
     glEnd();*/
-    
     glBegin(GL_POLYGON);
         glVertex2f(x[0][0][0],y[0][0][0]);
         glVertex2f(x[0][0][1],y[0][0][1]);
@@ -75,8 +74,7 @@ void display()
           {
               glVertex2f(x[dep][count][0],y[dep][count][0]);
               glVertex2f(x[dep][count][1],y[dep][count][1]);
-              glVertex2f(x[dep][count][2],y[dep][count][2]);
-          }
+              glVertex2f(x[dep][count][2],y[dep][count][2]);          }
           glEnd();
           count++;
 
